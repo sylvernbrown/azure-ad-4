@@ -28,7 +28,12 @@ This tutorial outlines common functions in Active Directory that are used to man
 <h2>Group Policy & Account Management Steps</h2>
 
 <p>
-1) Log into <strong>dc-1</strong> as an administrator, navigate to the search bar, and type <strong>"run"</strong>. Then, type <strong>"gpmc.msc"</strong>. <br />
+1) Log into dc-1 and create the following 4 folders: <br />
+  - read-access <br />
+  - write-access <br />
+  - no-access <br />
+  - accounting <br />
+  <br />
   <br />
 <img src="https://i.imgur.com/8N9IybO.png" height="80%" width="100%" alt="Disk Sanitization Steps"/><br />
 </p>
@@ -37,9 +42,11 @@ This tutorial outlines common functions in Active Directory that are used to man
 <br />
 
 <p>
-2) In the <strong>Group Policy Management</strong> window, <strong>[Right Click] Default Domain > Edit</strong>.  This will allow for the configuration of account lockout settings.<br />
+2) To begin allocating permissions, navigate to: [Right-Click] read-access > Properties > Sharing > Share.<br />
   <br />
+<img src="https://i.imgur.com/ChfzJYQ.png" height="60%" width="40%" alt="Disk Sanitization Steps"/><br />
 <img src="https://i.imgur.com/k0USdbk.png" height="60%" width="40%" alt="Disk Sanitization Steps"/><br />
+<img src="https://i.imgur.com/Z6WpZu0.png" height="60%" width="40%" alt="Disk Sanitization Steps"/><br />
 </p>
 <br />
 <br />
@@ -47,19 +54,19 @@ This tutorial outlines common functions in Active Directory that are used to man
 <br />
 
 <p>
-3) Navigate to: <strong>Account Lockout Policy > Account Lockout Duration | Account Lockout Threshold</strong>. <br />
+3) If "Read" permissions were allocated successfully, in Client-1 (our test user), we should have access to the "read-access" folder.<br />
   <br />
-<img src="https://i.imgur.com/IXAf5in.png" height="60%" width="60%" alt="Disk Sanitization Steps"/> <br />
+<img src="https://i.imgur.com/svaH8NV.png" height="60%" width="40%" alt="Disk Sanitization Steps"/><br />
 </p>
 <br />
 <br />
 <br />
 <br />
 
-
 <p>
-4) Once in <strong>Account lockout duration Properties</strong>, select the desired time frame for an account to remain locked after being locked out.<br />
+4) Once here, add "Domain Users" and give them "Read/Write" permissions by clicking on the dropdown as seen below.<br />
   <br />
+<img src="https://i.imgur.com/a1bWXJU.png" height="60%" width="60%" alt="Disk Sanitization Steps"/> <br />
 <img src="https://i.imgur.com/FAALtXa.png" height="60%" width="60%" alt="Disk Sanitization Steps"/> <br />
 </p>
 <br />
@@ -68,33 +75,8 @@ This tutorial outlines common functions in Active Directory that are used to man
 <br />
 
 
-
-
 <p>
-5) Then, navigate to <strong>Account lockout threshold properties</strong> and decide on a maximum threshold for consecutive login attempts, for this example it's set at 10.<br />
-  <br />
-<img src="https://i.imgur.com/32bAtQ0.png" height="80%" width="100%" alt="Disk Sanitization Steps"/> <br />
-  
-</p>
-<br />
-<br />
-<br />
-<br />
-
-
-<p>
-6) The end result should show something like this in <strong>Group Policy Management Editor</strong>.  Notice: Default settings for <strong>"Reset account lockout counter after" & "Allow Administrator account lockout"</strong> both automatically enable.<br />
-  <br />
-<img src="https://i.imgur.com/iDU1p94.png" height="80%" width="100%" alt="Disk Sanitization Steps"/> <br />
-  
-</p>
-<br />
-<br />
-<br />
-<br />
-
-<p>
-7) While the changes have been enabled, they would take 90 minutes to apply in the domain controller automatically.  To manually enable to configurations, login to the domain controller (dc-1) as an admin. <br />
+5) If "Read/Write" permissions were allocated successfully, in Client-1 (our test user), we should have access to the "write-access" folder. <br />
   <br />
 <img src="https://i.imgur.com/MWphZa7.png" height="80%" width="100%" alt="Disk Sanitization Steps"/> <br />
   
@@ -107,7 +89,9 @@ This tutorial outlines common functions in Active Directory that are used to man
 <p>
 8) Open the command prompt as an administrator, and type <strong>"gpupdate /force"</strong>.  As you can see, the updates should complete successfully.<br />
   <br />
-<img src="https://i.imgur.com/orEfnz4.png" height="60%" width="100%" alt="Disk Sanitization Steps"/> <br />
+<img src="https://i.imgur.com/nyNmjWe.png" height="60%" width="100%" alt="Disk Sanitization Steps"/> <br />
+<img src="https://i.imgur.com/SQWk3VC.png" height="60%" width="100%" alt="Disk Sanitization Steps"/> <br />
+
   
 </p>
 <br />
@@ -116,9 +100,9 @@ This tutorial outlines common functions in Active Directory that are used to man
 <br />
 
 <p>
-9) Next, test the changes made in the domain controller by logging in incorrectly on <strong>Client-1</strong> incorrectly at least 10 times.  If the changes were successful, you should see a prompt like this. <br />
+9) If "Read/Write" permissions were allocated successfully to only admins, in Client-1 (our test user), we should NOT have access to the "no-access" folder, since we are logged onto Client-1 as a user and not an admin. <br />
   <br />
-<img src="https://i.imgur.com/7kXnGth.png" height="80%" width="60%" alt="Disk Sanitization Steps"/> <br />
+<img src="https://i.imgur.com/orEfnz4.png" height="60%" width="100%" alt="Disk Sanitization Steps"/> <br />
 </p>
 <br />
 <br />
@@ -126,7 +110,7 @@ This tutorial outlines common functions in Active Directory that are used to man
 <br />
 
 <p>
-10) To unlock the account <strong>bat.cop</strong> and restore access, we will have to unlock his account in Active Directory on the domain controller.  Navigate to: <strong>[dc-1 VM] > Active Directory Users and Computers > [Right Click] mydomain.com > Find > [Username]</strong>.<br />
+10) Now, we will create a new "ACCOUNTANTS" group in dc-1 to assign permissions to the "accounting" folder. Navigate to Active Directory Users & Computers > [Right Click] mydomain.com > New > Organizational Unit. Name the new Organizational Unit "_GROUPS", this is where the "ACCOUNTANTS" group will be located. <br />
   <br />
 <img src="https://i.imgur.com/Lya01lw.png" height="80%" width="100%" alt="Disk Sanitization Steps"/><br />
 </p>
@@ -138,11 +122,11 @@ This tutorial outlines common functions in Active Directory that are used to man
 
 
 <p>
-11) After finding the user you wish to unlock, navigate to the user's properties. <strong>[Right Click] "bat.cop" > Properties > Account > [Select] "Unlock account"</strong>.<br />
+11) Next, navigate to: Active Directory Users & Computers > mydomain.com > [Right Click] Groups > New > Group. Name the group "ACCOUNTANTS".<br />
   <br />
   <br />
 <img src="https://i.imgur.com/J1gt5Py.png" height="80%" width="100%" alt="Disk Sanitization Steps"/> <br />
-  
+<img src="https://i.imgur.com/CmrZU2y.png" height="80%" width="60%" alt="Disk Sanitization Steps"/> <br /> 
 </p>
 <br />
 <br />
@@ -150,36 +134,11 @@ This tutorial outlines common functions in Active Directory that are used to man
 <br />
 
 
-
-
 <p>
-12) If you need to reset a password for a particular user, once again navigate to the user.  Once you find the user, right click and select <Strong>"Reset Password".</Strong><br />
-  <br />
-<img src="https://i.imgur.com/CmrZU2y.png" height="80%" width="60%" alt="Disk Sanitization Steps"/> <br />
-</p>
-<br />
-<br />
-<br />
-<br />
-
-
-
-
-<p>
-13) Additionally, from this panel you have the option to disable a user's account. <br />.
+13) Next, navigate to the "accounting" folder we created in dc-1 and select properties.  Give "Read/Write" permissions to the "ACCOUNTANTS" group as shown below.<br />.
   <br />
 <img src="https://i.imgur.com/U1mxqJE.png" height="80%" width="100%" alt="Disk Sanitization Steps"/> <br />
-</p>
-<br />
-<br />
-<br />
-<br />
-
-<p>
-14) When logging into <strong>client-1</strong> with a disabled account (bat.cop), the following message would display. <br />
-  <br />
 <img src="https://i.imgur.com/aa0o4bP.png" height="60%" width="60%" alt="Disk Sanitization Steps"/> <br />
- 
 </p>
 <br />
 <br />
@@ -188,7 +147,7 @@ This tutorial outlines common functions in Active Directory that are used to man
 
 
 <p>
-15) To re-enable the account, navigate back to the user properties panel and select <strong>Enable Account</strong>.<br />
+15) If "Read/Write" permissions were allocated successfully to only "ACCOUNTANTS", in Client-1 (our test user), we should NOT have access to the "accounting" folder, since we are logged onto Client-1 as a user which has NOT been added to the "ACCOUNTANTS" group in Active Directory. <br />
   <br />
 <img src="https://i.imgur.com/jqn4kX2.png" height="80%" width="100%" alt="Disk Sanitization Steps"/><br />
 </p>
@@ -197,18 +156,9 @@ This tutorial outlines common functions in Active Directory that are used to man
 <br />
 
 <p>
-16) To witness failed/successful logins by username, login to the domain controller (dc-1) navigate to search and type <strong>"eventvwr.msc"</strong>. <br />
+16) To add our test user "bat.cop" to the "_USERS" group, navigate to Active Directory Users and Computers > mydomain.com > _GROUPS > [Double Click] ACCOUNTANTS.  Then, select "Add" and add "bat.cop" as a user, giving them ACCOUNTANTS group permissions. <br />
   <br />
 <img src="https://i.imgur.com/gSvLELe.png" height="80%" width="100%" alt="Disk Sanitization Steps"/><br />
-</p>
-<br />
-<br />
-<br />
-<br />
-
-<p>
-17) Then, navigate to <strong>Find > [USERNAME] > Find All</strong>. This will show all the attempted logins that were rejected and accepted in the security tab. <br />
-  <br />
 <img src="https://i.imgur.com/O6PjBn4.png" height="60%" width="40%" alt="Disk Sanitization Steps"/> <br />
 </p>
 <br />
@@ -221,7 +171,7 @@ This tutorial outlines common functions in Active Directory that are used to man
 <p>
 18) As seen below, in the event viewer, you can see all logon attempts and make security decisions based off of them.  Here, we see all login attempts by <strong>bat.cop</strong> and can see where access was restored in the lab environment.</strong><br />
   <br />
-<img src="https://i.imgur.com/0HrEw9r.jpeg" height="60%" width="80%" alt="Disk Sanitization Steps"/> <br />
+<img src="https://i.imgur.com/rVMANvx.png" height="60%" width="80%" alt="Disk Sanitization Steps"/> <br />
   
 </p>
 <br />
@@ -231,23 +181,8 @@ This tutorial outlines common functions in Active Directory that are used to man
 
 19) Log into <strong>dc-1</strong> as an administrator, navigate to the search bar, and type <strong>"run"</strong>. Then, type <strong>"gpmc.msc"</strong>. <br />
   <br />
-<img src="https://i.imgur.com/XlCGrou.png" height="40%" width="60%" alt="Disk Sanitization Steps"/><br />
+<img src="https://i.imgur.com/qnmxkSn.png" height="40%" width="60%" alt="Disk Sanitization Steps"/><br />
 </p>
 <br />
 <br />
 <br />
-
-<p>
-2) In the <strong>Group Policy Management</strong> window, <strong>[Right Click] Default Domain > Edit</strong>.  This will allow for the configuration of account lockout settings.<br />
-  <br />
-<img src="https://i.imgur.com/CpErmss.png" height="60%" width="80%" alt="Disk Sanitization Steps"/><br />
-</p>
-<br />
-<br />
-<br />
-<br />
-
-
-
-
-
