@@ -3,29 +3,34 @@
 </p>
 
 <h1>Active Directory: Group Policy & Account Management in the Cloud (Azure)(4/4)</h1>
-This tutorial outlines common functions in Active Directory that are used to manage group policy and users.<br />
+This tutorial outlines common functions in Active Directory that are used to manage user, admin, and group permissions in Active Directory.  Using the virtual machines dc-1 and client-1 in the previous 3 guides, we will test permissions in Active Directory and demonstrate how to modify them.<br />
 
 
 <h2>Environments and Technologies Used</h2>
 
 - Microsoft Azure (Virtual Machines/Compute)
 - Remote Desktop
-- PowerShell
+- Active Directory Users & Computers
 
 <h2>Operating Systems Used </h2>
 
 - Windows Server 2022
 - Windows 10 (21H2)
   
-<h2>High-Level Group Policy & Account Management Steps</h2>
+<h2>High-Level Permissions Management Steps</h2>
 
-- Managing Account Lockouts
-- Resetting Account Passwords
-- Enabling & Disabling Accounts
-- Observing Logs
+- Creating folders to assign separate permissions
+- Assigning "Read-only" Permissions for Users
+- Assigning "Read/Write" Permissions for Users
+- Assigning "Read/Write" Permissions for Admins
+- Observing Access in Client-1 via "bat.cop" User
+- Creating an "ACCOUNTANTS" Group in Active Directory
+- Assignging "ACCOUNTANTS" Permissions as a group
+- Adding "bat.cop" User to "ACCOUNTANTS"
+- Observe "bat.cop" User's permissions change
 
 
-<h2>Group Policy & Account Management Steps</h2>
+<h2>Permissions Management Steps</h2>
 
 <p>
 1) Log into dc-1 and create the following 4 folders: <br />
