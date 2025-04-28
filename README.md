@@ -105,7 +105,7 @@ This tutorial outlines common functions in Active Directory that are used to man
 <br />
 
 <p>
-7) If "Read/Write" permissions were allocated successfully to only admins, in Client-1 (our test user), we should NOT have access to the "no-access" folder, since we are logged onto Client-1 as a user and not an admin. <br />
+7) If <strong>"Read/Write"</strong> permissions were allocated successfully to only admins, in <strong>Client-1</strong> (our test user), we should NOT have access to the <strong>"no-access"</strong> folder, since we are logged onto Client-1 as a user and not an admin. <br />
   <br />
 <img src="https://i.imgur.com/orEfnz4.png" height="60%" width="100%" alt="Disk Sanitization Steps"/> <br />
 </p>
@@ -115,7 +115,7 @@ This tutorial outlines common functions in Active Directory that are used to man
 <br />
 
 <p>
-8) Now, we will create a new "ACCOUNTANTS" group in dc-1 to assign permissions to the "accounting" folder. Navigate to Active Directory Users & Computers > [Right Click] mydomain.com > New > Organizational Unit. Name the new Organizational Unit "_GROUPS", this is where the "ACCOUNTANTS" group will be located. <br />
+8) Now, we will create a new <strong>"ACCOUNTANTS"</strong> group in dc-1 to assign permissions to the <strong>"accounting"</strong> folder. Navigate to <strong>Active Directory Users & Computers > [Right Click] mydomain.com > New > Organizational Unit</strong>. Name the new Organizational Unit <strong>"_GROUPS"</strong>, this is where the <strong>"ACCOUNTANTS"</strong> group will be located. <br />
   <br />
 <img src="https://i.imgur.com/Lya01lw.png" height="80%" width="100%" alt="Disk Sanitization Steps"/><br />
 </p>
@@ -127,7 +127,7 @@ This tutorial outlines common functions in Active Directory that are used to man
 
 
 <p>
-9) Next, navigate to: Active Directory Users & Computers > mydomain.com > [Right Click] Groups > New > Group. Name the group "ACCOUNTANTS".<br />
+9) Next, navigate to: <strong>Active Directory Users & Computers > mydomain.com > [Right Click] Groups > New > Group. Name the group "ACCOUNTANTS"</strong>.<br />
   <br />
   <br />
 <img src="https://i.imgur.com/J1gt5Py.png" height="80%" width="100%" alt="Disk Sanitization Steps"/> <br />
@@ -140,7 +140,7 @@ This tutorial outlines common functions in Active Directory that are used to man
 
 
 <p>
-10) Next, navigate to the "accounting" folder we created in dc-1 and select properties.  Give "Read/Write" permissions to the "ACCOUNTANTS" group as shown below.<br />.
+10) Next, navigate to the <strong>"accounting"</strong> folder we created in dc-1 and select <strong>Properties</strong>.  Give <Strong>"Read/Write"</Strong> permissions to the <Strong>"ACCOUNTANTS"</Strong> group as shown below.<br />.
   <br />
 <img src="https://i.imgur.com/U1mxqJE.png" height="80%" width="100%" alt="Disk Sanitization Steps"/> <br />
 <img src="https://i.imgur.com/aa0o4bP.png" height="60%" width="60%" alt="Disk Sanitization Steps"/> <br />
@@ -152,7 +152,7 @@ This tutorial outlines common functions in Active Directory that are used to man
 
 
 <p>
-11) If "Read/Write" permissions were allocated successfully to only "ACCOUNTANTS", in Client-1 (our test user), we should NOT have access to the "accounting" folder, since we are logged onto Client-1 as a user which has NOT been added to the "ACCOUNTANTS" group in Active Directory. <br />
+11) If <strong>"Read/Write"</strong> permissions were allocated successfully to only <strong>"ACCOUNTANTS"</strong>, in <Strong>Client-1</Strong> (our test user), we should NOT have access to the <strong>"accounting"</strong> folder, since we are logged onto Client-1 as a user which has NOT been added to the <strong>"ACCOUNTANTS"</strong> group in Active Directory. <br />
   <br />
 <img src="https://i.imgur.com/jqn4kX2.png" height="80%" width="100%" alt="Disk Sanitization Steps"/><br />
 </p>
@@ -161,7 +161,7 @@ This tutorial outlines common functions in Active Directory that are used to man
 <br />
 
 <p>
-12) To add our test user "bat.cop" to the "_USERS" group, navigate to Active Directory Users and Computers > mydomain.com > _GROUPS > [Double Click] ACCOUNTANTS.  Then, select "Add" and add "bat.cop" as a user, giving them ACCOUNTANTS group permissions. <br />
+12) To add our test user <strong>"bat.cop"</strong> to the <strong>"_USERS"</strong> group, navigate to <strong>Active Directory Users and Computers > mydomain.com > _GROUPS > [Double Click] ACCOUNTANTS</strong>.  Then, select <strong>"Add"</strong> and add <strong>"bat.cop"</strong> as a user, giving them <strong>ACCOUNTANTS</strong> group permissions. <br />
   <br />
 <img src="https://i.imgur.com/gSvLELe.png" height="80%" width="100%" alt="Disk Sanitization Steps"/><br />
 <img src="https://i.imgur.com/O6PjBn4.png" height="60%" width="40%" alt="Disk Sanitization Steps"/> <br />
@@ -174,7 +174,7 @@ This tutorial outlines common functions in Active Directory that are used to man
 
 
 <p>
-13) As seen below, in the event viewer, you can see all logon attempts and make security decisions based off of them.  Here, we see all login attempts by <strong>bat.cop</strong> and can see where access was restored in the lab environment.</strong><br />
+13) As seen below, in the event viewer, you can see all logon attempts and make security decisions based on them.  Here, we see all login attempts by <strong>bat.cop</strong> and can see where access was restored in the lab environment.</strong><br />
   <br />
 <img src="https://i.imgur.com/rVMANvx.png" height="60%" width="80%" alt="Disk Sanitization Steps"/> <br />
   
