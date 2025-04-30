@@ -2,7 +2,7 @@
 <img src="https://i.imgur.com/pU5A58S.png" alt="Microsoft Active Directory Logo"/>
 </p>
 
-<h1>Active Directory: Group Policy & Account Management in the Cloud (Azure)(4/4)</h1>
+<h1>Active Directory: Managing File Permissions (Azure)(4/4)</h1>
 This tutorial outlines common functions in Active Directory that are used to manage user, admin, and group permissions in Active Directory.  Using the virtual machines dc-1 and client-1 in the previous 3 guides, we will test permissions in Active Directory and demonstrate how to modify them.<br />
 
 
